@@ -1,0 +1,29 @@
+# Unsorted
+
+## Count the length and GC content of fasta files
+
+### Sumarize the length + GC per individual sequence
+
+```{bash}
+perl /export/lv1/user/spang_team/Scripts/Others/length+GC.pl Input.fasta
+```
+
+Output looks like this:
+
+AP024487.1_BCS94104.1-a0-arCOG00057	0.08	595
+Ga0009305_FELGPMLE-06750-a0-arCOG00057	0.061	606
+Ga0009305_FELGPMLE-17140-a0-arCOG00057	0.062	592
+
+### Sumarize the average aln length for different alignments
+
+```{bash}
+for sample in *faa; do perl /export/lv1/user/spang_team/Scripts/Others/length+GC.pl ${sample}* | awk -F'\t' -v OFS='\t' -v var1=$sample '{sum+=$3 }END { print var1 , sum/NR }' | sed 's/\.faa//g' ; done > avg_protein_length
+```
+
+Output looks like this:
+
+arCOG00001	94
+arCOG00002	65
+arCOG00004	89
+arCOG00005	90
+arCOG00006	105

@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Notebook for using custom scripts",
+    "section": "",
+    "text": "This is a cook book to describe available custom scripts and their usage."
+  },
+  {
+    "objectID": "Random.html",
+    "href": "Random.html",
+    "title": "1  Unsorted",
+    "section": "",
+    "text": "perl /export/lv1/user/spang_team/Scripts/Others/length+GC.pl Input.fasta\n\nOutput looks like this:\nAP024487.1_BCS94104.1-a0-arCOG00057 0.08 595 Ga0009305_FELGPMLE-06750-a0-arCOG00057 0.061 606 Ga0009305_FELGPMLE-17140-a0-arCOG00057 0.062 592\n\n\n\n\nfor sample in *faa; do perl /export/lv1/user/spang_team/Scripts/Others/length+GC.pl ${sample}* | awk -F'\\t' -v OFS='\\t' -v var1=$sample '{sum+=$3 }END { print var1 , sum/NR }' | sed 's/\\.faa//g' ; done > avg_protein_length\n\nOutput looks like this:\narCOG00001 94 arCOG00002 65 arCOG00004 89 arCOG00005 90 arCOG00006 105"
+  },
+  {
+    "objectID": "Sequence_modification.html",
+    "href": "Sequence_modification.html",
+    "title": "2  Sequence modification",
+    "section": "",
+    "text": "1st argument: one column file with list of sequences we want to keep/remove\n2nd argument: The fasta file from which we want to extract/remove sequnces\n3rd argument: if  is added, the list of sequences in the first argument are kept, if  is removed from the command then the list of sequences is removed from our initial fasta file\n\n\n#extract sequences from larger fasta file\nperl /export/lv1/user/spang_team/Scripts/Others/screen_list_new.pl list_of_sequences  Genome_seqs.faa keep > extracted_seqs.faa\n\n#subtract sequences from larger fasta file\nperl /export/lv1/user/spang_team/Scripts/Others/screen_list_new.pl list_of_sequences  Genome_seqs.faa > extracted_seqs.faa"
+  },
+  {
+    "objectID": "Sequence_modification.html#remove-sequences-with-special-characters-x-or-x",
+    "href": "Sequence_modification.html#remove-sequences-with-special-characters-x-or-x",
+    "title": "2  Sequence modification",
+    "section": "2.2 Remove sequences with special characters (=X or x)",
+    "text": "2.2 Remove sequences with special characters (=X or x)\nOptions:\n\n-a: Input fasta file\no : Output fasta, with sequences with X removed\nr : Output fasta, containing only sequences with X removed\nc : Character in sequence that leads to sequence removal\n\n\npython /export/lv1/user/spang_team/Scripts/Others//remove_seq_with_specific_char.py -a Input_faa -o Input_noX.faa -r Input_withX.faa -c X"
+  },
+  {
+    "objectID": "Sequence_modification.html#remove-gappy-sequences",
+    "href": "Sequence_modification.html#remove-gappy-sequences",
+    "title": "2  Sequence modification",
+    "section": "2.3 Remove gappy sequences",
+    "text": "2.3 Remove gappy sequences\nRemove sequences that contain for example >= 50% gaps. Adoped from here.\n\npython  /export/lv1/user/spang_team/Scripts/Others/faa_drop.py  Input_trimmed.aln  Input_trimmed_no_gappy.aln  0.5"
+  }
+]

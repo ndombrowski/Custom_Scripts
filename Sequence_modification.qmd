@@ -1,0 +1,38 @@
+# Sequence modification
+
+## Extract fasta sequence based on a list
+
+- 1st argument: one column file with list of sequences we want to keep/remove
+- 2nd argument: The fasta file from which we want to extract/remove sequnces
+- 3rd argument: if <keep> is added, the list of sequences in the first argument are kept, if <keep> is removed from the command then the list of sequences is removed from our initial fasta file
+
+```{bash eval=FALSE}
+#extract sequences from larger fasta file
+perl /export/lv1/user/spang_team/Scripts/Others/screen_list_new.pl list_of_sequences  Genome_seqs.faa keep > extracted_seqs.faa
+
+#subtract sequences from larger fasta file
+perl /export/lv1/user/spang_team/Scripts/Others/screen_list_new.pl list_of_sequences  Genome_seqs.faa > extracted_seqs.faa
+```
+
+
+## Remove sequences with special characters (=X or x)
+
+Options:
+
+- `-a`: Input fasta file
+- `o` : Output fasta, with sequences with X removed
+- `r` : Output fasta, containing only sequences with X removed
+- `c` : Character in sequence that leads to sequence removal
+
+```{bash}
+python /export/lv1/user/spang_team/Scripts/Others//remove_seq_with_specific_char.py -a Input_faa -o Input_noX.faa -r Input_withX.faa -c X
+```
+
+
+## Remove gappy sequences
+
+Remove sequences that contain for example >= 50% gaps. Adoped from [here](https://www.biostars.org/p/434389/).
+
+```{bash}
+python  /export/lv1/user/spang_team/Scripts/Others/faa_drop.py  Input_trimmed.aln  Input_trimmed_no_gappy.aln  0.5
+```
