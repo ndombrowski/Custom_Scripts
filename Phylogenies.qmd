@@ -1,0 +1,58 @@
+# Phylogenies
+
+## Remove gappy sequences from an alignment
+
+For a set of aligned and trimmed marker proteins, drop sequences that have >=50% of gaps.
+
+Arguments:
+
+- Input
+- Output
+- Cutoff, here 50% threshold
+
+```{bash}
+for sample in `cat $elife_markers`; do python /export/lv1/user/spang_team/Scripts/Others/faa_drop.py  trimal/${sample}*  no_gappy/${sample}.aln 0.5; done > gap_removal_summary
+
+```
+
+## Concatenate single marker gene alignments
+
+Script comes from [this source](https://github.com/nylander/catfasta2phyml).
+
+```{bash}
+/export/lv1/user/spang_team/Scripts/catfasta2phyml/catfasta2phyml.pl -f -c Folder_w_individual_alns/COG*.aln > Alignment_concatenated.faa
+```
+
+## Rename treefiles
+
+```{bash}
+for sample in *treefile ; do perl /export/lv1/user/spang_team/Scripts/Others/Replace_tree_names.pl names_to_replace ${sample} > ${sample}_renamed; done
+```
+
+
+## Color labels, midpoint root and add bootstraps to tree
+
+Input files:
+
+- names_to_replace: 2 column tab-delimited file. First column: original name, second column: extended name we want to replace the original with to include a tax string. I.e.
+
+AP024486.1_BCS90544.1	DPANN|Micrarchaeota|Micrarchaeia|AP024486.1_BCS90544.1
+
+- color_mapping2: 2 column, tab-delimited file. With the taxon name and the color. I,e:
+
+Asgard	[&!color=#e0a910]
+DPANN	[&!color=#006200]
+
+```{bash}
+#add taxon string to treefile
+for sample in *tree; do perl /export/lv1/user/spang_team/Scripts/Others/Replace_tree_names.pl names_to_replace ${sample} > ${sample}_renamed; done
+
+#get file path list for all treefiles we want to modify
+ls -d "$PWD"/*tree_renamed | tac - > listOfFiles2.list
+
+#prepare files for figtree
+export LC_ALL=C
+export LANG=C
+
+perl /export/lv1/user/spang_team/Scripts/Others/formatFigtree3.pl listOfFiles2.list -C color_mapping2
+```

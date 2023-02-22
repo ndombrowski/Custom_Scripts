@@ -12,6 +12,7 @@ book:
     - index.qmd
     - Random.qmd
     - Sequence_modification.qmd
+    - Phylogenies.qmd
 
 bibliography: references.bib
 

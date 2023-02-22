@@ -31,7 +31,7 @@ python /export/lv1/user/spang_team/Scripts/Others//remove_seq_with_specific_char
 
 ## Remove gappy sequences
 
-Remove sequences that contain for example >= 50% gaps. Adoped from [here](https://www.biostars.org/p/434389/).
+Remove sequences that contain for example >= 50% gaps. Adopted from [here](https://www.biostars.org/p/434389/).
 
 ```{bash}
 python  /export/lv1/user/spang_team/Scripts/Others/faa_drop.py  Input_trimmed.aln  Input_trimmed_no_gappy.aln  0.5
